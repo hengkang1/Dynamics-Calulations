@@ -1,0 +1,3 @@
+note:
+
+Firstly, if we want to investigate the dynamics of system for the one thermodynamics state, we should equllibrium this thermodynamics state before the calculations of dynamics. We can use the file of in-2.melt to equllibrium system via LAMMPS. LAMMPS will output *.restart format file. It is stress out that the states of low temperature should equllibrium with long time. Secondly, we start calculate the dynamics of the states by using the main files of *.restart and in-dy.melt via LAMMPS. The attachments are dd.txt and dp.txt. These two files are control the step of output.  We should inspect the temperature for file of in-dy.melt before running. 

@@ -1,0 +1,68 @@
+variable       Tb  equal 990
+variable       Te  equal 640
+variable       dT  equal 10
+variable       ss equal 10000000
+variable       st equal 'v_ss+990000'
+variable       sa equal 'v_st/1000'
+variable       nT  equal '(v_Tb-v_Te)/v_dT+1'
+
+label          loop
+variable       a loop ${nT}
+variable       temp0 equal 'v_Tb-(v_a-1)*v_dT'
+
+units           metal
+boundary        p p p
+
+atom_style      atomic
+read_restart    ${temp0}K.restart 
+reset_timestep  0
+
+
+pair_style      eam/alloy
+pair_coeff      * *  ZrCu.lammps.eam Zr Cu
+
+neighbor        2.0 bin
+neigh_modify    delay 10
+
+timestep        0.001
+thermo_style    custom step temp pe ke enthalpy vol lx ly lz
+thermo          10000
+
+variable         Sp equal step
+variable         T equal temp
+variable         Ep equal pe
+variable         H equal enthalpy
+variable         V equal vol
+
+compute         1 all pe/atom
+
+variable         n file dd.txt
+variable         f equal next(n)
+variable         m file dp.txt
+variable         s equal next(m)
+
+dump             1 all custom ${sa} ${temp0}K.lammpstrj id type x y z c_1
+dump             2 all custom 10000 ${temp0}K-cfg.lammpstrj id type x y z 
+dump             3 all custom 1 ${temp0}K-dis.lammpstrj id type xu yu zu
+dump_modify      2 every v_f first yes
+dump_modify      3 every v_s first yes
+
+
+fix              1 all npt temp ${temp0} ${temp0} 0.1 iso 0.000 0.000 0.75
+fix              2 all print 1000 "${Sp} ${T} ${Ep} ${H} ${V}" file ${temp0}K-thermo.txt
+run              ${st}
+unfix            1
+unfix            2
+
+variable        n delete
+variable        f delete
+variable        m delete
+variable        s delete
+
+clear
+next             a
+jump             in.melt   loop
+
+
+
+

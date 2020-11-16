@@ -1,0 +1,41 @@
+units           metal
+boundary        p p p
+
+atom_style      atomic
+read_data       in.data 
+
+pair_style      eam/alloy
+pair_coeff      * *  ZrCu.lammps.eam Zr Cu
+
+neighbor        2.0 bin
+neigh_modify    delay 10
+
+timestep        0.001
+thermo_style    custom step temp pe ke enthalpy vol lx ly lz
+thermo          10000
+
+variable         S equal step
+variable         T equal temp
+variable         Ep equal pe
+variable         H equal enthalpy
+variable         V equal vol
+
+fix        1 all npt temp 2000 2000 0.1 iso 0 0 1.0 drag 0.2
+fix          2 all print 1000 "${S} ${T} ${Ep} ${H} ${V}" file thermo-1.txt
+run              1000000
+unfix            1
+unfix            2
+reset_timestep   0
+
+dump             1 all custom 10000 det.lammpstrj id type x y z 
+fix              1 all npt temp 2000 300  0.1 iso 0 0 1.0 drag 0.2
+fix          2 all print 1000 "${S} ${T} ${Ep} ${H} ${V}" file thermo-2.txt
+run              1700000
+unfix            1
+unfix            2
+undump           1
+
+
+
+
+

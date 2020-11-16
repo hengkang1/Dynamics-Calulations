@@ -1,0 +1,39 @@
+label           loop
+variable        a loop 20 
+variable        T0 equal "2000-(v_a-1)*50" 
+
+ 
+units           metal
+boundary        p p p
+
+atom_style      atomic
+read_restart    ${T0}K.restart
+reset_timestep  0 
+
+
+pair_style      eam/alloy
+pair_coeff      * *  ZrCu.lammps.eam Zr Cu
+
+neighbor        2.0 bin
+neigh_modify    delay 10
+
+timestep        0.001
+thermo_style    custom step temp pe ke enthalpy vol lx ly lz
+thermo          10000
+
+variable         S equal step
+variable         T equal temp
+variable         Ep equal pe
+variable         H equal enthalpy
+variable         V equal vol
+
+dump             1 all custom 10000 dump.lammpstrj id type x y z
+fix              1 all npt temp ${T0} ${T0} 0.1 iso 0 0 1.0 drag 0.2
+fix       2 all print 1000 "${S} ${T} ${Ep} ${H} ${V}" file thermo-${T0}K.txt
+run              1000000
+unfix            1
+unfix            2
+undump           1
+clear
+next  a
+jump              in-3.melt loop
