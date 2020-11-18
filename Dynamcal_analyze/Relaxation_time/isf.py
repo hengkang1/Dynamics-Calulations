@@ -67,10 +67,10 @@ if(mm==1):
                     isft.append(value[3])
         ao=len(time)
         ############################
-        rec1=ao-1
-        rec2=ao-1
-        rect=ao-1
-        for i in range (0,ao-2):
+        rec1=ao
+        rec2=ao
+        rect=ao
+        for i in range (0,ao-1):
             if((isf1[i]-ret)>0 and (isf1[i+1]-ret)<0):
                 rec1=i
             if((isf2[i]-ret)>0 and (isf2[i+1]-ret)<0):
@@ -81,8 +81,8 @@ if(mm==1):
         #############################################################
         #start interpolate
         #########################################################
-        if(rec1+5<=(ao-1)):    
-            for i in range (rec1-5,rec1+5):
+        if(rec1+2<=(ao-1)):    
+            for i in range (rec1-8,rec1+2):
                 a=time[i]
                 xdata1.append(a)
                 b=isf1[i]
@@ -100,8 +100,8 @@ if(mm==1):
             relaxationtime1.append("NAN")
             print ("element 1 need a relxation for a long time in",filename)
         #################################################################
-        if(rec2+5<=(ao-1)):     
-            for i in range (rec2-5,rec2+5):
+        if(rec2+2<=(ao-1)):     
+            for i in range (rec2-8,rec2+2):
                 a=time[i]
                 xdata2.append(a)
                 b=isf2[i]
@@ -119,8 +119,8 @@ if(mm==1):
             relaxationtime2.append("NAN")
             print ("element 2 need a relxation for a long time in",filename)
         #####################################################################
-        if(rect+5<=(ao-1)):
-            for i in range (rect-5,rect+5):
+        if(rect+2<=(ao-1)):
+            for i in range (rect-8,rect+2):
                 a=time[i]
                 xdatat.append(a)
                 b=isft[i]
@@ -192,11 +192,11 @@ if (mm==2):
                     isft.append(value[4])
         ao=len(time)
         ############################
-        rec1=ao-1
-        rec2=ao-1
-        rec3=ao-1
-        rect=ao-1
-        for i in range (0,ao-2):
+        rec1=ao
+        rec2=ao
+        rec3=ao
+        rect=ao
+        for i in range (0,ao-1):
             if((isf1[i]-ret)>0 and (isf1[i+1]-ret)<0):
                 rec1=i
             if((isf2[i]-ret)>0 and (isf2[i+1]-ret)<0):
@@ -209,8 +209,8 @@ if (mm==2):
         #############################################################
         #start interpolate
         #########################################################
-        if(rec1+5<=(ao-1)):    
-            for i in range (rec1-5,rec1+5):
+        if(rec1+2<=(ao-1)):    
+            for i in range (rec1-8,rec1+2):
                 a=time[i]
                 xdata1.append(a)
                 b=isf1[i]
@@ -228,8 +228,8 @@ if (mm==2):
             relaxationtime1.append("NAN")
             print ("element 1 need a relxation for a long time in",filename)
         #################################################################
-        if(rec2+5<=(ao-1)):     
-            for i in range (rec2-5,rec2+5):
+        if(rec2+2<=(ao-1)):     
+            for i in range (rec2-8,rec2+2):
                 a=time[i]
                 xdata2.append(a)
                 b=isf2[i]
@@ -247,8 +247,8 @@ if (mm==2):
             relaxationtime2.append("NAN")
             print ("element 2 need a relxation for a long time in",filename)
         #####################################################################
-        if(rec3+5<=(ao-1)):    
-            for i in range (rec3-5,rec3+5):
+        if(rec3+2<=(ao-1)):    
+            for i in range (rec3-8,rec3+2):
                 a=time[i]
                 xdata3.append(a)
                 b=isf3[i]
@@ -266,8 +266,8 @@ if (mm==2):
             relaxationtime3.append("NAN")
             print ("element 3 need a relxation for a long time in",filename)   
         ####################################################################
-        if(rect+5<=(ao-1)):
-            for i in range (rect-5,rect+5):
+        if(rect+2<=(ao-1)):
+            for i in range (rect-8,rect+2):
                 a=time[i]
                 xdatat.append(a)
                 b=isft[i]
