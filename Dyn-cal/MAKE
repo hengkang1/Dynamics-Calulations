@@ -1,0 +1,11 @@
+#!/bin/bash
+gfortran -o ./bin/Dyrun ./src/script/Dyrun.f90
+gfortran -o ./bin/Dyrun1 ./src/script/Dyrun1.f90
+gfortran -o ./bin/Dyrun2 ./src/script/Dyrun2.f90
+gfortran -o ./bin/Dyrun3 ./src/script/Dyrun3.f90
+gfortran -o ./bin/pdf ./src/script/pdf.f90
+gfortran -o ./bin/pdt ./src/script/pdt.f90
+gfortran -o ./bin/MFSQ ./src/script/MFSQ.f90
+gfortran -o ./bin/DyCal ./src/script/DyCal.f90
+gfortran -o ./bin/Dif ./src/script/Dif.f90
+gfortran -o ./bin/Ret ./src/script/Ret.f90
